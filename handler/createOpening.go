@@ -4,10 +4,34 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jaovw/go-api/schema"
 )
 
 func CreateOpeningHandler(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "POST opening",
-	})
+	request := CreateOpeningRequest{}
+
+	ctx.BindJSON(&request)
+
+	if err := request.Validate(); err != nil {
+		logger.Errorf("Validation error: %v", err.Error())
+		sendError(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	opening := schema.Opening{
+		Role:     request.Role,
+		Company:  request.Company,
+		Location: request.Location,
+		Remote:   *request.Remote,
+		Link:     request.Link,
+		Salary:   request.Salary,
+	}
+
+	if err := db.Create(&opening).Error; err != nil {
+		logger.Errorf("Error creating opening: %v", err.Error())
+		sendError(ctx, http.StatusInternalServerError, "Error creating opening on database")
+		return
+	}
+
+	sendSuccess(ctx, "create-opening", opening)
 }
