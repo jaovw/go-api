@@ -11,7 +11,7 @@ func initializeRoutes(router *gin.Engine) {
 
 	v1 := router.Group("/api/v1")
 	{
-		v1.DELETE("/opening", handler.DeleteOpeningHandler)
+		v1.DELETE("/opening/:id", handler.DeleteOpeningHandler)
 
 		v1.POST("/opening", handler.CreateOpeningHandler)
 
