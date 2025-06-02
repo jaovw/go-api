@@ -15,8 +15,10 @@ func initializeRoutes(router *gin.Engine) {
 
 		v1.POST("/opening", handler.CreateOpeningHandler)
 
-		v1.PUT("/opening", handler.UpdateOpeningHandler)
+		v1.PUT("/opening/:id", handler.UpdateOpeningHandler)
 
 		v1.GET("/opening", handler.ListOpeningHandler)
+
+		v1.GET("/opening/:id", handler.ShowOpeningHandler)
 	}
 }
