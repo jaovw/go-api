@@ -46,10 +46,47 @@ go-api/
 └── go.sum
 ```
 
-## 📮 Endpoints
+## 🧭 Endpoints
 
 Em construção 🚧  
 A API já possui as bases para um CRUD completo. Em breve, endpoints documentados! 📘
+
+## 📄 Documentation
+
+Esta API foi desenvolvida com foco em clareza, desempenho e padronização. Para facilitar o entendimento e a integração com seus endpoints, utilizamos o **Swagger**, por meio da biblioteca **Swaggo**, uma das ferramentas mais populares para geração automática de documentação em APIs escritas em Go.
+
+A documentação é gerada automaticamente a partir de comentários estruturados diretamente nos handlers da aplicação. Veja um exemplo:
+
+```go
+// @Summary Create opening
+// @Description Create a new opening
+// @Tags Openings
+// @Accept json
+// @Produce json
+// @Param request body CreateOpeningRequest true "Request body"
+// @Success 200 {object} CreateOpeningResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /opening [post]
+```
+> Para visualizar a documentação Swagger interativa, basta rodar o projeto e acessar a rota dedicada ao Swagger UI.
+
+
+## 🪄 Makefile
+
+Para facilitar a execução de comandos recorrentes durante o desenvolvimento, utilizamos um **Makefile**, permitindo interações rápidas via terminal com o comando `make`.
+
+Abaixo estão os principais comandos disponíveis:
+
+| Comando           | Descrição                                                         |
+|-------------------|-------------------------------------------------------------------|
+| `make` ou `make run` | Executa a aplicação diretamente usando `go run main.go`.         |
+| `make build`      | Compila a aplicação e gera um executável com o nome `go_api`.     |
+| `make test`       | Executa todos os testes presentes no projeto (`go test ./ ...`).  |
+| `make docs`       | Gera a documentação Swagger utilizando o `swag init`.             |
+| `make clean`      | Remove o executável gerado (`go_api.exe`) e o diretório `docs/`.  |
+
+Esse processo torna o desenvolvimento mais produtivo e padronizado entre diferentes ambientes e usuários.
 
 ## 🤝 Contribuições
 
